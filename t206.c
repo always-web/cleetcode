@@ -31,38 +31,19 @@ struct ListNode {
 typedef struct ListNode *Node;
 
 
-struct ListNode *doReverseList(struct ListNode *node, Node tail, Node temp) {
-    if (node->next == NULL) {
-        tail = node;
-        temp = node;
-        return temp;
-    }
-    temp = doReverseList(node->next, tail, temp);
-    if (temp != NULL) {
-        temp->next = node;
-        temp = node;
-        node->next = NULL;
-    }
-    return temp;
-}
 
 struct ListNode* reverseList(struct ListNode* head){
+    //
     if (head == NULL) {
         return NULL;
     }
     if (head->next == NULL) {
         return head;
     }
-    if (head->next->next == NULL) {
-        Node temp = head->next;
-        temp->next = head;
-        head->next = NULL;
-        return temp;
-    }
-    static Node tail = NULL;
-    Node temp = NULL;
-    tail = doReverseList(head, tail, temp);
-    return tail;
+    Node newHead = reverseList(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return newHead;
 }
 
 
