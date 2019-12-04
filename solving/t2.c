@@ -16,6 +16,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 struct ListNode{
     int val;
@@ -32,7 +33,7 @@ struct ListNode{
 typedef struct ListNode *Node;
 
 Node initQueue(int val){
-    Node head = (Node) malloc(sizeof(Node));
+    Node head = (Node) calloc(1,sizeof(struct ListNode));
     head->val = val;
     head->next = NULL;
     return head;
@@ -72,10 +73,12 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2){
     Node result = NULL;
     while (a != NULL && b != NULL) {
         int total = a->val + b->val;
-        bool totalGteTen = false;
+        if (shouldAddOne) {
+            total += 1;
+            shouldAddOne = false;
+        }
         if (total >= 10) {
             shouldAddOne = true;
-            totalGteTen = true;
             total = total % 10;
         }
         if (!result) {
@@ -116,12 +119,21 @@ Node ggg(const int pInt[], int i) {
     return node;
 }
 
+void show(Node pNode) {
+    Node head = pNode;
+    while (head) {
+        printf("%d ->", head->val);
+        head = head->next;
+    }
+}
+
 int main(void){
     int a[3] = {2,4,3};
     int b[3] = {5, 6, 4};
     Node pa = ggg(a, 3);
     Node pb = ggg(b, 3);
     Node pc = addTwoNumbers(pa, pb);
+    show(pc);
     return 0;
 }
 
