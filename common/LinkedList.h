@@ -6,7 +6,7 @@
 #define CLEETCODE_LINKEDLIST_H
 
 #include <stdio.h>
-#include <stdio.h>
+#include <stdlib.h>
 
 struct ListNode {
     int val;
@@ -29,7 +29,31 @@ Node generateListNode(const int pInt[], int n) {
     return result;
 }
 
-void printLinkedList(Node head) {
+
+Node createLinkedList() {
+    int n;
+    puts("请输入列表的长度");
+    scanf("%d", &n);
+    Node head = (Node) malloc(sizeof(Node));
+    Node tail = (Node) malloc(sizeof(Node));
+    for (int i = 0; i < n; ++i) {
+        int data;
+        printf("请输入列表第%d项值\n", i);
+        scanf("%d", &data);
+        Node node = (Node) malloc(sizeof(Node));
+        node->val = data;
+        if (i == 0) {
+            head = node;
+            tail = node;
+            continue;
+        }
+        tail->next = node;
+        tail = node;
+    }
+    return head;
+}
+
+void toString(Node head) {
     Node temp = head;
     if (temp == NULL) {
         printf("%s\n", "NULL");
