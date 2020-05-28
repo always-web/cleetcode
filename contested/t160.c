@@ -55,11 +55,8 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "../common/LinkedList.h"
 
-struct ListNode{
-    int val;
-    struct ListNode *next;
-};
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
@@ -69,10 +66,9 @@ struct ListNode{
  *     struct ListNode *next;
  * };
  */
- typedef struct ListNode *Node;
 struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *headB) {
-    auto Node a = headA;
-    auto Node b = headB;
+     Node a = headA;
+     Node b = headB;
     while (a != NULL) {
         while (b != NULL) {
             if (b->val == a->val) {
@@ -136,7 +132,6 @@ struct ListNode *getIntersectionNode(struct ListNode *headA, struct ListNode *he
 }
 //leetcode submit region end(Prohibit modification and deletion)
 
-Node generateListNode(const int pInt[], int n);
 
 int main(void){
     int a[1] = {8};
@@ -147,15 +142,3 @@ int main(void){
     return 0;
 }
 
-Node generateListNode(const int pInt[], int n) {
-    Node result = (Node) malloc(sizeof(Node));
-    Node temp = result;
-    temp->val = pInt[0];
-    for (int i = 1; i < n; ++i) {
-        Node next = (Node) malloc(sizeof(Node));
-        next->val = pInt[i];
-        temp->next = next;
-        temp = next;
-    }
-    return result;
-}

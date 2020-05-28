@@ -46,11 +46,8 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "../common/LinkedList.h"
 
-struct ListNode{
-    int val;
-    struct ListNode *next;
-};
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
@@ -60,46 +57,30 @@ struct ListNode{
  *     struct ListNode *next;
  * };
  */
- typedef struct ListNode *Node;
 bool hasCycle(struct ListNode *head) {
-    if (head == NULL) {
+    if (head == NULL || head->next == NULL) {
         return false;
     }
-    if (head->next == NULL) {
-        return false;
-    }
-    Node f = head;
-    Node s = head->next;
-    if (s == f) {
-        return true;
-    }
-    //排除 a->a
-    if (s->next == NULL) {
-        return false;
-    }
-    s = s->next;
-    if (s == f) {
-        return true;
-    }
-    //排除 a->b->a
-    s = s->next;
-    while (s != NULL) {
-        f = f->next;
-        if (f == s) {
-            return true;
-        }
-        if (s->next != NULL && s->next == f) {
-            return true;
-        }
+    Node s = head;
+    Node f = head->next;
+    while (f != NULL && s != NULL && f->val != s->val) {
         s = s->next;
+        f = f->next;
+        if (f != NULL) {
+            f = f->next;
+        }
     }
-    return false;
+    if (f == NULL || s == NULL) {
+        return false;
+    }
+    return true;
 }
+
 //leetcode submit region end(Prohibit modification and deletion)
-int main(void){
-    int *a = (int *) malloc(sizeof(int));
-    int *b = a;
-    printf("%d", a == b);
-    return 0;
+int main(void) {
+    int arr[2] = {1,2};
+    Node n = generateListNode(arr, 2);
+    bool r = hasCycle(n);
+    printf("%d", n == NULL);
 }
 

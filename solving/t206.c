@@ -9,10 +9,7 @@
 //你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
 // Related Topics 链表
 
-struct ListNode {
-    int val;
-    struct ListNode *next;
-};
+#include "../common/LinkedList.h"
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
@@ -27,9 +24,6 @@ struct ListNode {
  *     struct ListNode *next;
  * };
  */
-
-typedef struct ListNode *Node;
-
 
 
 struct ListNode* reverseList(struct ListNode* head){
